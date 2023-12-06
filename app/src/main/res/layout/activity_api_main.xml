@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RestFullAPIActivity">
+    tools:context=".ApiMainActivity">
 
     <EditText
         android:id="@+id/lastNameEditText"
@@ -53,10 +53,11 @@
         android:text="@string/delete_tweet"
         android:onClick="deleteTweet" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <RecyclerView
         android:id="@+id/tweetsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/yourOtherViews"
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

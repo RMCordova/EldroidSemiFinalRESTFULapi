@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CordovaRestfulAPI</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="enter_last_name">enter_last_name</string>
+    <string name="enter_name">enter_name</string>
+    <string name="enter_description">enter_description</string>
+    <string name="fetch_tweets">fetch_tweets</string>
+    <string name="create_tweet">create_tweet</string>
+    <string name="update_tweet">update_tweet</string>
+    <string name="delete_tweet">delete_tweet</string>
+</resources>
