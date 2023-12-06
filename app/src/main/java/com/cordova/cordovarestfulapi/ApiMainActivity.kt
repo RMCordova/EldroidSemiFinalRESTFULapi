@@ -99,14 +99,14 @@ class ApiMainActivity : AppCompatActivity() {
                     val tweetResponse = response.body()
                     val newTweetId = tweetResponse?.id
                     newTweetId?.let {
-                        // Assuming you have a method to fetch a complete tweet by its ID
+
                         fetchTweetById(it)
                     } ?: run {
-                        // Handle the case when newTweetId is null
+
                         Toast.makeText(applicationContext, "Failed to create tweet: Invalid response", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // Handle error
+
                     Toast.makeText(applicationContext, "Failed to create tweet: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -126,21 +126,21 @@ class ApiMainActivity : AppCompatActivity() {
                     val newTweet = response.body()
                     newTweet?.let {
                         tweetAdapter.addTweet(it)
-                        // Scroll to the newly added item
+
                         binding.tweetsRecyclerView.smoothScrollToPosition(tweetAdapter.itemCount - 1)
                         Toast.makeText(applicationContext, "Tweet created successfully", Toast.LENGTH_SHORT).show()
                     } ?: run {
-                        // Handle the case when newTweet is null
+
                         Toast.makeText(applicationContext, "Failed to create tweet: Invalid response", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // Handle error
+
                     Toast.makeText(applicationContext, "Failed to create tweet: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Tweet>, t: Throwable) {
-                // Handle failure
+
                 Toast.makeText(applicationContext, "Failed to create tweet", Toast.LENGTH_SHORT).show()
             }
         })
@@ -158,13 +158,13 @@ class ApiMainActivity : AppCompatActivity() {
         val call = ApiClient.tweetApi.updateTweet(lastName, tweetId, updatedTweet)
         call.enqueue(object : Callback<TweetResponse> {
             override fun onResponse(call: Call<TweetResponse>, response: Response<TweetResponse>) {
-                // Refresh the tweets list after updating the tweet
+
                 fetchTweets()
                 Toast.makeText(applicationContext, "Tweet updated successfully", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<TweetResponse>, t: Throwable) {
-                // Handle failure
+
                 Toast.makeText(applicationContext, "Failed to update tweet", Toast.LENGTH_SHORT).show()
             }
         })
@@ -177,13 +177,13 @@ class ApiMainActivity : AppCompatActivity() {
         val call = ApiClient.tweetApi.deleteTweet(lastName, tweetId)
         call.enqueue(object : Callback<TweetResponse> {
             override fun onResponse(call: Call<TweetResponse>, response: Response<TweetResponse>) {
-                // Refresh the tweets list after deleting the tweet
+
                 fetchTweets()
                 Toast.makeText(applicationContext, "Tweet deleted successfully", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<TweetResponse>, t: Throwable) {
-                // Handle failure
+
                 Toast.makeText(applicationContext, "Failed to delete tweet", Toast.LENGTH_SHORT).show()
             }
         })

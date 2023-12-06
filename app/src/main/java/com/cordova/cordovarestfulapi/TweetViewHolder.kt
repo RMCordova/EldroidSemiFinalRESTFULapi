@@ -13,6 +13,6 @@ class TweetViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     fun bind(tweet: Tweet) {
         binding.nameTextView.text = tweet.name
         binding.descriptionTextView.text = tweet.description
-        // Set other views as needed
+
     }
 }
