@@ -51,9 +51,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
-    implementation("com.android.tools.build:gradle:7.0.0")
+    implementation("com.android.tools.build:gradle:4.1.3")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
