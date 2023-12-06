@@ -149,7 +149,7 @@ class ApiMainActivity : AppCompatActivity() {
 
     private fun updateTweet() {
         val lastName = binding.lastNameEditText.text.toString()
-        val tweetId = "taXVegwpotXTrNuQ4Cw8" // Replace with the actual tweet ID you want to update
+        val tweetId = "qwertyuiop123456789asdfghjklzxcvbnmm"
         val name = binding.nameEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
 
@@ -172,7 +172,7 @@ class ApiMainActivity : AppCompatActivity() {
 
     private fun deleteTweet() {
         val lastName = binding.lastNameEditText.text.toString()
-        val tweetId = "taXVegwpotXTrNuQ4Cw8" // Replace with the actual tweet ID you want to delete
+        val tweetId = "qwertyuiop123456789asdfghjklzxcvbnmm"
 
         val call = ApiClient.tweetApi.deleteTweet(lastName, tweetId)
         call.enqueue(object : Callback<TweetResponse> {
