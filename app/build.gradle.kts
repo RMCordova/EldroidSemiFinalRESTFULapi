@@ -52,7 +52,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     implementation("com.android.tools.build:gradle:4.1.3")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     testImplementation("junit:junit:4.13.2")
