@@ -10,6 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class ApiMainActivity : AppCompatActivity() {
 
 
@@ -54,18 +55,35 @@ class ApiMainActivity : AppCompatActivity() {
         val call = ApiClient.tweetApi.getTweets(lastName)
         call.enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
-                val tweets = response.body()
-                // Update the RecyclerView with the fetched tweets
-                tweetAdapter.submitList(tweets)
-                Toast.makeText(applicationContext, "Fetched ${tweets?.size} tweets", Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful) {
+                    val tweets = response.body()
+                    tweetAdapter.submitList(tweets)
+                    Toast.makeText(
+                        applicationContext,
+                        "Fetched ${tweets?.size} tweets",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // Handle error
+                    Toast.makeText(
+                        applicationContext,
+                        "Failed to fetch tweets: ${response.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
             override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
                 // Handle failure
-                Toast.makeText(applicationContext, "Failed to fetch tweets", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Failed to fetch tweets: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
+
 
     private fun createTweet() {
         val lastName = binding.lastNameEditText.text.toString()
@@ -77,9 +95,20 @@ class ApiMainActivity : AppCompatActivity() {
         val call = ApiClient.tweetApi.createTweet(lastName, tweet)
         call.enqueue(object : Callback<TweetResponse> {
             override fun onResponse(call: Call<TweetResponse>, response: Response<TweetResponse>) {
-                // Refresh the tweets list after creating a new tweet
-                fetchTweets()
-                Toast.makeText(applicationContext, "Tweet created successfully", Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful) {
+                    val tweetResponse = response.body()
+                    val newTweetId = tweetResponse?.id
+                    newTweetId?.let {
+                        // Assuming you have a method to fetch a complete tweet by its ID
+                        fetchTweetById(it)
+                    } ?: run {
+                        // Handle the case when newTweetId is null
+                        Toast.makeText(applicationContext, "Failed to create tweet: Invalid response", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Handle error
+                    Toast.makeText(applicationContext, "Failed to create tweet: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onFailure(call: Call<TweetResponse>, t: Throwable) {
@@ -88,6 +117,35 @@ class ApiMainActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun fetchTweetById(tweetId: String) {
+        val call = ApiClient.tweetApi.getTweetById(tweetId)
+        call.enqueue(object : Callback<Tweet> {
+            override fun onResponse(call: Call<Tweet>, response: Response<Tweet>) {
+                if (response.isSuccessful) {
+                    val newTweet = response.body()
+                    newTweet?.let {
+                        tweetAdapter.addTweet(it)
+                        // Scroll to the newly added item
+                        binding.tweetsRecyclerView.smoothScrollToPosition(tweetAdapter.itemCount - 1)
+                        Toast.makeText(applicationContext, "Tweet created successfully", Toast.LENGTH_SHORT).show()
+                    } ?: run {
+                        // Handle the case when newTweet is null
+                        Toast.makeText(applicationContext, "Failed to create tweet: Invalid response", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Handle error
+                    Toast.makeText(applicationContext, "Failed to create tweet: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Tweet>, t: Throwable) {
+                // Handle failure
+                Toast.makeText(applicationContext, "Failed to create tweet", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     private fun updateTweet() {
         val lastName = binding.lastNameEditText.text.toString()

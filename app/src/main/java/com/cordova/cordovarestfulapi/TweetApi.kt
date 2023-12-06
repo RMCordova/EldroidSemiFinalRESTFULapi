@@ -11,6 +11,9 @@ interface TweetApi {
     @GET("tweet/{cordova}/{tweet_id}")
     fun getTweet(@Path("cordova") lastname: String, @Path("tweet_id") tweetId: String): Call<Tweet>
 
+    @GET("tweets/{tweetId}")
+    fun getTweetById(@Path("tweetId") tweetId: String): Call<Tweet>
+
     @POST("tweet/cordova")
     fun createTweet(@Path("cordova") lastname: String, @Body tweet: Tweet): Call<TweetResponse>
 

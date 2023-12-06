@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "https://eldroid.online/"
+    private const val BASE_URL = "https://eldroid.online/tweet"
 
     val tweetApi: TweetApi by lazy {
         val retrofit = Retrofit.Builder()
@@ -14,4 +14,5 @@ object ApiClient {
 
         retrofit.create(TweetApi::class.java)
     }
+
 }
